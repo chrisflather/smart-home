@@ -57,29 +57,31 @@ app.intent(
     'LightOn', 
     {
         "slots": {
-            "Room": "RoomType"
+            "ROOM": "RoomType"
         },
         "utterances": [
-            "{turn on|switch on|illuminate} the {-|RoomType} light",
-            "{turn on|switch on|illuminate} the light {for the|in the|on the} {-|RoomType}",
-            "to let there be light {in the|on the} {-|RoomType}"
+            "{turn on|switch on|illuminate} the {-|ROOM} light",
+            "{turn on|switch on|illuminate} the light {for the|in the|on the} {-|ROOM}",
+            "to let there be light {in the|on the} {-|ROOM}"
         ]
     },
     function(req,res) {
-        res.say("turning on the " + req.slot("Room") + " light");
+        res.say("turning on the " + req.slot("ROOM") + " light");
+        res.say("group" + app.rooms[req.slot("ROOM")]);
     });
 
 app.intent(
     'LightOff', 
     {
         "slots": {
-            "Room": "RoomType"
+            "ROOM": "RoomType"
         },
         "utterances": [
-            "{turn off|switch off|deluminate} the {-|RoomType} light",
-            "{turn off|switch off|deluminate} the light {for the|in the|on the} {-|RoomType}"
+            "{turn off|switch off|deluminate} the {-|ROOM} light",
+            "{turn off|switch off|deluminate} the light {for the|in the|on the} {-|ROOM}"
         ]
     },
     function(req,res) {
-        res.say("turning off the " + req.slot("Room") + " light");
+        res.say("turning off the " + req.slot("ROOM") + " light");
+        res.say("group" + app.rooms[req.slot("ROOM")]);
     });
