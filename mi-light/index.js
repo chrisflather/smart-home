@@ -3,7 +3,7 @@
 module.change_code = 1;
 
 var alexa = require('alexa-app');
-var controller = require('node-milight-promise');
+// var controller = require('node-milight-promise');
 
 var app = new alexa.app('lights');
 
