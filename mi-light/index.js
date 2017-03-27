@@ -74,6 +74,11 @@ app.intent(
         ]
     },
     function(req,res) {
+        if (app.rooms[req.slot("ROOM")] == undefined) {
+            res.say("sorry i did not understand which light you meant");
+            return;
+        }
+
         res.say("turning on the " + req.slot("ROOM") + " light");
         res.say("group" + app.rooms[req.slot("ROOM")]);
     });
@@ -91,6 +96,11 @@ app.intent(
         ]
     },
     function(req,res) {
+        if (app.rooms[req.slot("ROOM")] == undefined) {
+            res.say("sorry i did not understand which light you meant");
+            return;
+        }
+
         res.say("turning off the " + req.slot("ROOM") + " light");
         res.say("group" + app.rooms[req.slot("ROOM")]);
     });
@@ -110,6 +120,11 @@ app.intent(
         ]
     },
     function(req,res) {
+        if (app.rooms[req.slot("ROOM")] == undefined) {
+            res.say("sorry i did not understand which light you meant");
+            return;
+        }
+
         res.say("setting luminosity of " + req.slot("ROOM") + " light to " + req.slot("BRIGHT"));
         res.say("group" + app.rooms[req.slot("ROOM")]);
     });
