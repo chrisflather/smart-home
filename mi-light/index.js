@@ -27,6 +27,20 @@ app.launch(function(req, res) {
 });
 
 app.intent(
+    'HelloWorld', 
+    {
+        "slots": {
+            "NAME": "AMAZON.US_FIRST_NAME"
+        },
+        "utterances": [
+            "my {name's|name is} {NAME}"
+        ]
+    },
+    function(req,res) {
+        res.say("your name is " + req.slot("NAME"));
+    });
+
+app.intent(
     'LightOn', 
     {
         "slots": {
