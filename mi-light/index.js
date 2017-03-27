@@ -67,8 +67,8 @@ app.intent(
             "ROOM": "RoomType"
         },
         "utterances": [
-            "{turn on|switch on|illuminate} the {-|ROOM} light",
-            "{turn on|switch on|illuminate} the light {for the|in the|on the} {-|ROOM}",
+            "to {turn on|switch on|illuminate} the {-|ROOM} light",
+            "to {turn on|switch on|illuminate} the light {for the|in the|on the} {-|ROOM}",
             "to let there be light {in the|on the} {-|ROOM}"
         ]
     },
@@ -84,8 +84,8 @@ app.intent(
             "ROOM": "RoomType"
         },
         "utterances": [
-            "{turn off|switch off|deluminate} the {-|ROOM} light",
-            "{turn off|switch off|deluminate} the light {for the|in the|on the} {-|ROOM}"
+            "to {turn off|switch off|deluminate} the {-|ROOM} light",
+            "to {turn off|switch off|deluminate} the light {for the|in the|on the} {-|ROOM}"
         ]
     },
     function(req,res) {
@@ -101,12 +101,12 @@ app.intent(
             "BRIGHTNESS": "Amazon.NUMBER",
         },
         "utterances": [
-            "{brighten|dim} the {-|ROOM} light to {BRIGHTNESS}",
-            "{brighten|dim} the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
-            "set the {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
-            "set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
-            "set {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
-            "set {brightness|luminosity} of the {-|ROOM} to {BRIGHTNESS}"
+            "to {brighten|dim} the {-|ROOM} light to {BRIGHTNESS}",
+            "to {brighten|dim} the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
+            "to set the {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
+            "to set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
+            "to set {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
+            "to set {brightness|luminosity} of the {-|ROOM} to {BRIGHTNESS}"
         ]
     },
     function(req,res) {
