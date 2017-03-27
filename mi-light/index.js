@@ -30,7 +30,12 @@ app.launch(function(req, res) {
         "illuminate the light on the porch",
         "turn off the light in the den",
         "switch off the lounge light",
-        "deluminate the light in the study"
+        "deluminate the light in the study",
+        "brighten the office light to 15",
+        "dim the porch light to 15",
+        "brighten the light in the lounge to 19",
+        "set brightness of the den to 19",
+        "set luminosity of the den light to 6"
     ];
 
     var rand = sample[Math.floor(Math.random() * sample.length)];
@@ -83,5 +88,26 @@ app.intent(
     },
     function(req,res) {
         res.say("turning off the " + req.slot("ROOM") + " light");
+        res.say("group" + app.rooms[req.slot("ROOM")]);
+    });
+
+app.intent(
+    'Brightness', 
+    {
+        "slots": {
+            "ROOM": "RoomType",
+            "BRIGHTNESS": "Amazon.NUMBER",
+        },
+        "utterances": [
+            "{brighten|dim} the {-|ROOM} light to {BRIGHTNESS}",
+            "{brighten|dim} the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
+            "set the {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
+            "set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
+            "set {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
+            "set {brightness|luminosity} of the {-|ROOM} to {BRIGHTNESS}"
+        ]
+    },
+    function(req,res) {
+        res.say("setting luminosity of " + req.slot("ROOM") + " light to " + req.slot("BRIGHTNESS"));
         res.say("group" + app.rooms[req.slot("ROOM")]);
     });
