@@ -98,19 +98,19 @@ app.intent(
     {
         "slots": {
             "ROOM": "RoomType",
-            "BRIGHTNESS": "AMAZON.NUMBER",
+            "BRIGHT": "AMAZON.NUMBER",
         },
         "utterances": [
-            "to {brighten|dim} the {-|ROOM} light to {BRIGHTNESS}",
-            "to {brighten|dim} the light {for the|in the|on the} {-|ROOM} to {-|BRIGHTNESS}",
-            "to set the {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHTNESS}",
-            "to set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {-|BRIGHTNESS}",
-            "to set {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHTNESS}",
-            "to set {brightness|luminosity} of the {-|ROOM} to {-|BRIGHTNESS}"
+            "to {brighten|dim} the {-|ROOM} light to {BRIGHT}",
+            "to {brighten|dim} the light {for the|in the|on the} {-|ROOM} to {-|BRIGHT}",
+            "to set the {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHT}",
+            "to set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {-|BRIGHT}",
+            "to set {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHT}",
+            "to set {brightness|luminosity} of the {-|ROOM} to {-|BRIGHT}"
         ]
     },
     function(req,res) {
-        res.say("setting luminosity of " + req.slot("ROOM") + " light to " + req.slot("BRIGHTNESS"));
+        res.say("setting luminosity of " + req.slot("ROOM") + " light to " + req.slot("BRIGHT"));
         res.say("group" + app.rooms[req.slot("ROOM")]);
     });
 
