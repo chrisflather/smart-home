@@ -53,7 +53,7 @@ app.intent(
             "NAME": "AMAZON.US_FIRST_NAME"
         },
         "utterances": [
-            "my {name's|name is} {NAME}"
+            "my {name's|name is} {-|NAME}"
         ]
     },
     function(req,res) {
@@ -98,15 +98,15 @@ app.intent(
     {
         "slots": {
             "ROOM": "RoomType",
-            "BRIGHTNESS": "Amazon.NUMBER",
+            "BRIGHTNESS": "AMAZON.NUMBER",
         },
         "utterances": [
             "to {brighten|dim} the {-|ROOM} light to {BRIGHTNESS}",
-            "to {brighten|dim} the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
-            "to set the {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
-            "to set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {BRIGHTNESS}",
-            "to set {brightness|luminosity} of the {-|ROOM} light to {BRIGHTNESS}",
-            "to set {brightness|luminosity} of the {-|ROOM} to {BRIGHTNESS}"
+            "to {brighten|dim} the light {for the|in the|on the} {-|ROOM} to {-|BRIGHTNESS}",
+            "to set the {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHTNESS}",
+            "to set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {-|BRIGHTNESS}",
+            "to set {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHTNESS}",
+            "to set {brightness|luminosity} of the {-|ROOM} to {-|BRIGHTNESS}"
         ]
     },
     function(req,res) {
