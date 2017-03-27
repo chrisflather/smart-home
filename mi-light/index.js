@@ -67,9 +67,8 @@ app.intent(
             "ROOM": "RoomType"
         },
         "utterances": [
-            "to {turn on|switch on|illuminate} the {-|ROOM} light",
-            "to {turn on|switch on|illuminate} the light {for the|in the|on the} {-|ROOM}",
-            "to let there be light {in the|on the} {-|ROOM}"
+            "{|to} {turn on|switch on|illuminate} {|the} {|light} {|for|in|on} {|the} {-|ROOM} {|light}",
+            "{|to} let there be light {in|on|for} {|the} {-|ROOM}"
         ]
     },
     function(req,res) {
