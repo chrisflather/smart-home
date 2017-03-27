@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "alexa-app": "^4.0.0"
+    "alexa-app": "^4.0.0",
+    "dgram": "^1.0.1",
+    "node-milight-promise": "^0.1.1"
   },
   "devDependencies": {},
   "scripts": {
