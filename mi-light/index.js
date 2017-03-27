@@ -1,3 +1,5 @@
+"use strict";
+
 module.change_code = 1;
 
 var alexa = require('alexa-app');
