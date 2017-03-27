@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "alexa-app": "^4.0.0"
+    "alexa-app": "^4.0.0",
+    "mi-light-controller": "file:../local-modules/mi-light-controller"
   },
   "devDependencies": {},
   "scripts": {
