@@ -101,7 +101,7 @@ app.intent(
             "BRIGHT": "AMAZON.NUMBER",
         },
         "utterances": [
-            "to {brighten|dim} the {-|ROOM} light to {BRIGHT}",
+            "to {brighten|dim} the {-|ROOM} light to {-|BRIGHT}",
             "to {brighten|dim} the light {for the|in the|on the} {-|ROOM} to {-|BRIGHT}",
             "to set the {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHT}",
             "to set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {-|BRIGHT}",
