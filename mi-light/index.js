@@ -113,3 +113,5 @@ app.intent(
         res.say("setting luminosity of " + req.slot("ROOM") + " light to " + req.slot("BRIGHTNESS"));
         res.say("group" + app.rooms[req.slot("ROOM")]);
     });
+
+module.exports = app;
