@@ -67,8 +67,10 @@ app.intent(
             "ROOM": "RoomType"
         },
         "utterances": [
-            "{|to} {turn on|switch on|illuminate} {|the} {|light} {|for|in|on} {|the} {-|ROOM} {|light}",
-            "{|to} let there be light {in|on|for} {|the} {-|ROOM}"
+            "{|to} {turn on|switch on} {|the} light {|for|in|on} {|the} {-|ROOM}",
+            "{|to} {turn on|switch on|illuminate} {|the} {-|ROOM} light",
+            "{|to} let there be light {in|on|for} {|the} {-|ROOM}",
+            "{|to} illuminate {|the} {-|ROOM}"
         ]
     },
     function(req,res) {
@@ -83,8 +85,9 @@ app.intent(
             "ROOM": "RoomType"
         },
         "utterances": [
-            "to {turn off|switch off|deluminate} the {-|ROOM} light",
-            "to {turn off|switch off|deluminate} the light {for the|in the|on the} {-|ROOM}"
+            "{|to} {turn off|switch off} {|the} light {|for|in|on} {|the} {-|ROOM}",
+            "{|to} {turn off|switch off|illuminate} {|the} {-|ROOM} light",
+            "{|to} deluminate {|the} {-|ROOM}"
         ]
     },
     function(req,res) {
@@ -100,12 +103,10 @@ app.intent(
             "BRIGHT": "AMAZON.NUMBER",
         },
         "utterances": [
-            "to {brighten|dim} the {-|ROOM} light to {-|BRIGHT}",
-            "to {brighten|dim} the light {for the|in the|on the} {-|ROOM} to {-|BRIGHT}",
-            "to set the {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHT}",
-            "to set the {brightness|luminosity} of the light {for the|in the|on the} {-|ROOM} to {-|BRIGHT}",
-            "to set {brightness|luminosity} of the {-|ROOM} light to {-|BRIGHT}",
-            "to set {brightness|luminosity} of the {-|ROOM} to {-|BRIGHT}"
+            "{|to} {brighten|dim} {|the} {-|ROOM} {|light} to {-|BRIGHT}",
+            "{|to} {brighten|dim} {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT}",
+            "{|to} set {|the} {brightness|luminosity} of {|the} {-|ROOM} {|light} to {-|BRIGHT}",
+            "{|to} set {|the} {brightness|luminosity} of {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT}"            
         ]
     },
     function(req,res) {
