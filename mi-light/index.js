@@ -75,7 +75,7 @@ app.intent(
     },
     function(req,res) {
         if (app.rooms[req.slot("ROOM")] == undefined) {
-            res.say("sorry i did not understand which light you meant");
+            res.say("sorry, i did not understand which light you meant");
             return;
         }
 
@@ -97,7 +97,7 @@ app.intent(
     },
     function(req,res) {
         if (app.rooms[req.slot("ROOM")] == undefined) {
-            res.say("sorry i did not understand which light you meant");
+            res.say("sorry, i did not understand which light you meant");
             return;
         }
 
@@ -121,7 +121,7 @@ app.intent(
     },
     function(req,res) {
         if (app.rooms[req.slot("ROOM")] == undefined) {
-            res.say("sorry i did not understand which light you meant");
+            res.say("sorry, i did not understand which light you meant");
             return;
         }
 
