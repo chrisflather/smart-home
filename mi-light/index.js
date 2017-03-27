@@ -23,7 +23,20 @@ app.rooms = {
     "bed": 4
 };
 
-app.launch(function(req, res) {    
+app.launch(function(req, res) {
+    var sample = [
+        "turn on the light in the office",
+        "switch on the outside light",
+        "illuminate the light on the porch",
+        "turn off the light in the den",
+        "switch off the lounge light",
+        "deluminate the light in the study"
+    ];
+
+    var rand = sample[Math.floor(Math.random() * sample.length)];
+    res.say("what would you like me to do");
+    res.say("here is an example of something to say");
+    res.say(rand);
 });
 
 app.intent(
