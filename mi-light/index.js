@@ -3,7 +3,9 @@
 module.change_code = 1;
 
 var alexa = require('alexa-app');
-// var controller = require('node-milight-promise');
+var Milight = require('node-milight-promise').MilightController;
+var controlIP = "192.168.1.9";
+var commands = require('node-milight-promise').commands2;
 
 var app = new alexa.app('lights');
 
@@ -41,8 +43,8 @@ app.launch(function(req, res) {
     ];
 
     var rand = sample[Math.floor(Math.random() * sample.length)];
-    res.say("what would you like me to do");
-    res.say("here is an example of something to say");
+    res.say("what would you like me to do?");
+    res.say("here is an example of something to say:");
     res.say(rand);
 });
 
@@ -74,13 +76,21 @@ app.intent(
         ]
     },
     function(req,res) {
-        if (app.rooms[req.slot("ROOM")] == undefined) {
+        var room = app.rooms[req.slot("ROOM")];
+
+        if (!room) {
             res.say("sorry, i did not understand which light you meant");
             return;
         }
 
         res.say("turning on the " + req.slot("ROOM") + " light");
-        res.say("group" + app.rooms[req.slot("ROOM")]);
+        
+        var light = new Milight({
+            ip: controlIP,
+            delayBetweenCommands: 100,
+            commandRepeat: 3
+        });
+        light.sendCommands(commands.rgbw.on(room));
     });
 
 app.intent(
@@ -96,13 +106,20 @@ app.intent(
         ]
     },
     function(req,res) {
-        if (app.rooms[req.slot("ROOM")] == undefined) {
+        var room = app.rooms[req.slot("ROOM")];
+        if (room == undefined) {
             res.say("sorry, i did not understand which light you meant");
             return;
         }
 
         res.say("turning off the " + req.slot("ROOM") + " light");
-        res.say("group" + app.rooms[req.slot("ROOM")]);
+        
+        var light = new Milight({
+            ip: controlIP,
+            delayBetweenCommands: 100,
+            commandRepeat: 3
+        });
+        light.sendCommands(commands.rgbw.off(room));
     });
 
 app.intent(
@@ -113,20 +130,35 @@ app.intent(
             "BRIGHT": "AMAZON.NUMBER",
         },
         "utterances": [
-            "{|to} {brighten|dim} {|the} {-|ROOM} {|light} to {-|BRIGHT}",
-            "{|to} {brighten|dim} {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT}",
-            "{|to} set {|the} {brightness|luminosity} of {|the} {-|ROOM} {|light} to {-|BRIGHT}",
-            "{|to} set {|the} {brightness|luminosity} of {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT}"            
+            "{|to} {brighten|dim} {|the} {-|ROOM} {|light} to {-|BRIGHT} {-|percent}",
+            "{|to} {brighten|dim} {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT} {-|percent}",
+            "{|to} set {|the} {brightness|luminosity} of {|the} {-|ROOM} {|light} to {-|BRIGHT} {-|percent}",
+            "{|to} set {|the} {brightness|luminosity} of {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT} {-|percent}"            
         ]
     },
     function(req,res) {
-        if (app.rooms[req.slot("ROOM")] == undefined) {
+        var room = app.rooms[req.slot("ROOM")];
+        var luminosity = parseInt(req.slot("BRIGHT"));
+
+        if (room == undefined) {
             res.say("sorry, i did not understand which light you meant");
             return;
         }
 
-        res.say("setting luminosity of " + req.slot("ROOM") + " light to " + req.slot("BRIGHT"));
-        res.say("group" + app.rooms[req.slot("ROOM")]);
+        if (isNaN(luminosity)) {
+            res.say("sorry, i did not understand how bright you wanted the light");
+            return;
+        }
+
+        res.say("setting luminosity of " + req.slot("ROOM") + " light to " + req.slot("BRIGHT") + " percent");
+
+        var light = new Milight({
+            ip: controlIP,
+            delayBetweenCommands: 100,
+            commandRepeat: 3
+        });
+        light.sendCommands(commands.rgbw.on(room));
+        light.sendCommands(commands.rgbw.brightness2(luminosity));
     });
 
 module.exports = app;
