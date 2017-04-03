@@ -101,8 +101,9 @@ app.intent(
         },
         "utterances": [
             "{|to} {turn off|switch off} {|the} light {|for|in|on} {|the} {-|ROOM}",
-            "{|to} {turn off|switch off|illuminate} {|the} {-|ROOM} light",
-            "{|to} deluminate {|the} {-|ROOM}"
+            "{|to} {turn off|switch off|deluminate} {|the} {-|ROOM} light",
+            "{|to} deluminate {|the} {-|ROOM}",
+            "{|to} {let|allow} {|the} darkness {|to} reign {|for|in|on} {|the} {-|ROOM}"
         ]
     },
     function(req,res) {
