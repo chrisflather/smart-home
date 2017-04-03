@@ -131,10 +131,10 @@ app.intent(
             "BRIGHT": "AMAZON.NUMBER",
         },
         "utterances": [
-            "{|to} {brighten|dim} {|the} {-|ROOM} {|light} to {-|BRIGHT} {-|percent}",
-            "{|to} {brighten|dim} {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT} {-|percent}",
-            "{|to} set {|the} {brightness|luminosity} of {|the} {-|ROOM} {|light} to {-|BRIGHT} {-|percent}",
-            "{|to} set {|the} {brightness|luminosity} of {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT} {-|percent}"            
+            "{|to} {brighten|dim} {|the} {-|ROOM} {|light} to {-|BRIGHT} {|percent}",
+            "{|to} {brighten|dim} {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT} {|percent}",
+            "{|to} set {|the} {brightness|luminosity} of {|the} {-|ROOM} {|light} to {-|BRIGHT} {|percent}",
+            "{|to} set {|the} {brightness|luminosity} of {|the} light {for|in|on} {|the} {-|ROOM} to {-|BRIGHT} {|percent}"            
         ]
     },
     function(req,res) {
