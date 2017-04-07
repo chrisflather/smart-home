@@ -4,27 +4,29 @@ module.change_code = 1;
 
 var alexa = require('alexa-app');
 var Milight = require('node-milight-promise').MilightController;
-var controlIP = "192.168.1.9";
-var commands = require('node-milight-promise').commands2;
+var controlIP = "192.168.1.24";
+var commands = require('node-milight-promise').commandsV6;
 
 var app = new alexa.app('lights');
 
 app.rooms = {
-    "all": 0,
-    "every": 0,
-    "front room": 1,
-    "lounge": 1,
-    "living room": 1,
-    "office": 2,
-    "study": 2,
-    "den": 2,
-    "wolf den": 2,
-    "porch": 3,
-    "outside": 3,
-    "door": 3,
-    "bedroom": 4,
-    "closet": 4,
-    "bed": 4
+    "all": {type: "rgbw", zone: 0},
+    "every": {type: "rgbw", zone: 0},
+    "front room": {type: "rgbw", zone: 1},
+    "lounge": {type: "rgbw", zone: 1},
+    "living room": {type: "rgbw", zone: 1},
+    "office": {type: "rgbw", zone: 2},
+    "study": {type: "rgbw", zone: 2},
+    "den": {type: "rgbw", zone: 2},
+    "wolf den": {type: "rgbw", zone: 2},
+    "porch": {type: "rgbw", zone: 3},
+    "outside": {type: "rgbw", zone: 3},
+    "door": {type: "rgbw", zone: 3},
+    "bedroom": {type: "full", zone: 1},
+    "closet": {type: "full", zone: 1},
+    "bed": {type: "full", zone: 1},
+    "bridge": {type: "bridge" },
+    "hub": {type: "bridge" }
 };
 
 app.launch(function(req, res) {
@@ -87,10 +89,11 @@ app.intent(
         
         var light = new Milight({
             ip: controlIP,
-            delayBetweenCommands: 100,
-            commandRepeat: 3
+            type: 'v6'
         });
-        light.sendCommands(commands.rgbw.on(room));
+        if (room.type == 'rgbw') light.sendCommands(commands.rgbw.on(room.zone));
+        if (room.type == 'full') light.sendCommands(commands.fullColor.on(room.zone));
+        if (room.type == 'bridge') light.sendCommands(commands.bridge.on());
     });
 
 app.intent(
@@ -117,10 +120,11 @@ app.intent(
         
         var light = new Milight({
             ip: controlIP,
-            delayBetweenCommands: 100,
-            commandRepeat: 3
+            type: 'v6'
         });
-        light.sendCommands(commands.rgbw.off(room));
+        if (room.type == 'rgbw') light.sendCommands(commands.rgbw.off(room.zone));
+        if (room.type == 'full') light.sendCommands(commands.fullColor.off(room.zone));
+        if (room.type == 'bridge') light.sendCommands(commands.bridge.off());
     });
 
 app.intent(
@@ -155,11 +159,21 @@ app.intent(
 
         var light = new Milight({
             ip: controlIP,
-            delayBetweenCommands: 100,
-            commandRepeat: 3
+            type: 'v6'
         });
-        light.sendCommands(commands.rgbw.on(room));
-        light.sendCommands(commands.rgbw.brightness2(luminosity));
+
+        if (room.type == 'rgbw') {
+            light.sendCommands(commands.rgbw.on(room.zone));
+            light.sendCommands(commands.rgbw.brightness(room.zone, luminosity));
+        }
+        if (room.type == 'full') {
+            light.sendCommands(commands.fullColor.on(room.zone));
+            light.sendCommands(commands.fullColor.brightness(room.zone, luminosity));
+        }
+        if (room.type == 'bridge') {
+            light.sendCommands(commands.bridge.on());
+            light.sendCommands(commands.bridge.brightness(luminosity));
+        }
     });
 
 module.exports = app;
