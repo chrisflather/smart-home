@@ -164,7 +164,7 @@ app.intent(
 
         if (room.type == 'rgbw') {
             light.sendCommands(commands.rgbw.on(room.zone));
-            light.sendCommands(commands.rgbw.brightness2(luminosity));
+            light.sendCommands(commands.rgbw.brightness(room.zone, luminosity));
         }
         if (room.type == 'full') {
             light.sendCommands(commands.fullColor.on(room.zone));
