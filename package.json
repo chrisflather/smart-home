@@ -1,0 +1,22 @@
+{
+  "name": "smart-home",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisflather/smart-home.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrisflather/smart-home/issues"
+  },
+  "homepage": "https://github.com/chrisflather/smart-home#readme",
+  "dependencies": {
+    "alexa-app-server": "^3.0.1"
+  }
+}
