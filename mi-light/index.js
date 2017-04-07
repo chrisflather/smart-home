@@ -4,8 +4,8 @@ module.change_code = 1;
 
 var alexa = require('alexa-app');
 var Milight = require('node-milight-promise').MilightController;
-var controlIP = "192.168.1.9";
-var commands = require('node-milight-promise').commands2;
+var controlIP = "192.168.1.24";
+var commands = require('node-milight-promise').commandsV6;
 
 var app = new alexa.app('lights');
 
@@ -87,8 +87,7 @@ app.intent(
         
         var light = new Milight({
             ip: controlIP,
-            delayBetweenCommands: 100,
-            commandRepeat: 3
+            type: 'v6'
         });
         light.sendCommands(commands.rgbw.on(room));
     });
@@ -117,8 +116,7 @@ app.intent(
         
         var light = new Milight({
             ip: controlIP,
-            delayBetweenCommands: 100,
-            commandRepeat: 3
+            type: 'v6'
         });
         light.sendCommands(commands.rgbw.off(room));
     });
@@ -155,8 +153,7 @@ app.intent(
 
         var light = new Milight({
             ip: controlIP,
-            delayBetweenCommands: 100,
-            commandRepeat: 3
+            type: 'v6'
         });
         light.sendCommands(commands.rgbw.on(room));
         light.sendCommands(commands.rgbw.brightness2(luminosity));
