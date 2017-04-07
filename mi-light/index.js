@@ -25,7 +25,8 @@ app.rooms = {
     "bedroom": {type: "full", zone: 1},
     "closet": {type: "full", zone: 1},
     "bed": {type: "full", zone: 1},
-    "bridge": {type: "bridge" }
+    "bridge": {type: "bridge" },
+    "hub": {type: "hub" }
 };
 
 app.launch(function(req, res) {
