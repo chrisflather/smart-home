@@ -4,7 +4,7 @@ var commands = require('node-milight-promise').commandsV6;
 
 module.exports = function(express, alexaAppServerObject) {
     var validateCommon = function(req, res) {
-        if (!req.param.ltype || ["full", "rgbw", "bridge"].indexOf(req.param.type)==-1) {
+        if (!req.param.ltype || ["full", "rgbw", "bridge"].indexOf(req.param.ltype)==-1) {
             res.status(400).send({ status: "ERROR", message: "unknown bulb type" });
             return false;
         }
