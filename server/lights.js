@@ -5,18 +5,18 @@ var commands = require('node-milight-promise').commandsV6;
 module.exports = function(express, alexaAppServerObject) {
     var validateCommon = function(req, res) {
         if (!req.param.ltype || ["full", "rgbw", "bridge"].indexOf(req.param.type)==-1) {
-            res.status(500).send({ error: "unknown bulb type" });
+            res.status(400).send({ status: "ERROR", message: "unknown bulb type" });
             return false;
         }
 
         if (!req.param.zone || isNaN(parseInt(req.param.zone))) {
-            res.status(500).send({ error: "invalid zone" });
+            res.status(400).send({ status: "ERROR", message: "invalid zone" });
             return false;
         }
 
         var zone = parseInt(req.param.zone);
         if (zone < 0 || zone > 4) {
-            res.status(500).send({ error: "zone out of range" });
+            res.status(400).send({  status: "ERROR", message: "zone out of range" });
             return false;
         }
 
@@ -44,6 +44,8 @@ module.exports = function(express, alexaAppServerObject) {
                 light.sendCommands(commands.bridge.on());
                 break;
           }
+
+          res.status(200).send({ status: "OK", message: "Light turned on successfully." });
       }
     });
 
@@ -68,19 +70,21 @@ module.exports = function(express, alexaAppServerObject) {
                 light.sendCommands(commands.bridge.off());
                 break;
           }
+
+          res.status(200).send({ status: "OK", message: "Light turned off successfully." });
       } 
     });
 
     express.get("/light/:ltype/:zone/brightness/:brightness", function(req, res) {
       if (validateCommon(req, res)) {
         if (!req.param.brightness || isNaN(parseInt(req.param.brightness))) {
-            res.status(500).send({ error: "invalid brightness" });
+            res.status(400).send({  status: "ERROR", message: "invalid brightness" });
             return false;
         }
 
         var brightness = parseInt(req.param.brightness);
         if (brightness < 0 || brightness > 4) {
-            res.status(500).send({ error: "brightness out of range" });
+            res.status(400).send({  status: "ERROR", message: "brightness out of range" });
             return false;
         }
 
@@ -100,6 +104,8 @@ module.exports = function(express, alexaAppServerObject) {
                 light.sendCommands(commands.bridge.on(), commands.rgbw.brightness(brightness));
                 break;
         }
+
+        res.status(200).send({ status: "OK", message: "Brightness set successfully." });
       } 
     });
 };
