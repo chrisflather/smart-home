@@ -163,16 +163,13 @@ app.intent(
         });
 
         if (room.type == 'rgbw') {
-            light.sendCommands(commands.rgbw.on(room.zone));
-            light.sendCommands(commands.rgbw.brightness(room.zone, luminosity));
+            light.sendCommands(commands.rgbw.on(room.zone), commands.rgbw.brightness(room.zone, luminosity));
         }
         if (room.type == 'full') {
-            light.sendCommands(commands.fullColor.on(room.zone));
-            light.sendCommands(commands.fullColor.brightness(room.zone, luminosity));
+            light.sendCommands(commands.fullColor.on(room.zone), commands.fullColor.brightness(room.zone, luminosity));
         }
         if (room.type == 'bridge') {
-            light.sendCommands(commands.bridge.on());
-            light.sendCommands(commands.bridge.brightness(luminosity));
+            light.sendCommands(commands.bridge.on(), commands.bridge.brightness(luminosity));
         }
     });
 
