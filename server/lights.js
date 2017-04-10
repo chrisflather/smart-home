@@ -114,7 +114,7 @@ module.exports = function(express, alexaAppServerObject) {
                 light.sendCommands(commands.rgbw.on(zone), commands.rgbw.brightness(zone, brightness));
                 break;
             case "bridge":
-                light.sendCommands(commands.bridge.on(), commands.rgbw.brightness(brightness));
+                light.sendCommands(commands.bridge.on(), commands.bridge.brightness(brightness));
                 break;
         }
 
