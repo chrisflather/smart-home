@@ -87,6 +87,9 @@ module.exports = function(express, alexaAppServerObject) {
 
     express.get("/light/:ltype/:zone/brightness/:brightness", function(req, res) {
       if (validateCommon(req, res)) {
+        var ltype = req.params.ltype;
+        var zone = parseInt(req.params.zone);
+
         if (!req.params.brightness || isNaN(parseInt(req.params.brightness))) {
             res.status(400).send({  status: "ERROR", message: "invalid brightness" });
             return false;
