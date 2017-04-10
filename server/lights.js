@@ -3,6 +3,14 @@ var Milight = require('node-milight-promise').MilightController;
 var commands = require('node-milight-promise').commandsV6;
 
 module.exports = function(express, alexaAppServerObject) {
+    var setCacheHeaders = function(res) {
+        res.set({
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        });
+    }
+
     var validateCommon = function(req, res) {
         if (!req.params.ltype || ["full", "rgbw", "bridge"].indexOf(req.params.ltype)==-1) {
             res.status(400).send({ status: "ERROR", message: "unknown bulb type" });
@@ -45,6 +53,7 @@ module.exports = function(express, alexaAppServerObject) {
                 break;
           }
 
+          setCacheHeaders(res);
           res.status(200).send({ status: "OK", message: "Light turned on successfully." });
       }
     });
@@ -71,6 +80,7 @@ module.exports = function(express, alexaAppServerObject) {
                 break;
           }
 
+          setCacheHeaders(res);
           res.status(200).send({ status: "OK", message: "Light turned off successfully." });
       } 
     });
@@ -105,6 +115,7 @@ module.exports = function(express, alexaAppServerObject) {
                 break;
         }
 
+        setCacheHeaders(res);
         res.status(200).send({ status: "OK", message: "Brightness set successfully." });
       } 
     });
