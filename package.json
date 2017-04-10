@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/chrisflather/smart-home#readme",
   "dependencies": {
-    "alexa-app-server": "^3.0.1"
+    "alexa-app-server": "^3.0.1",
+    "node-milight-promise": "^0.1.2"
   }
 }
