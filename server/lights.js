@@ -3,7 +3,7 @@ var Milight = require('node-milight-promise').MilightController;
 var commands = require('node-milight-promise').commandsV6;
 
 module.exports = function(express, alexaAppServerObject) {
-    var validateCommon = function(req) {
+    var validateCommon = function(req, res) {
         if (!req.param.ltype || ["full", "rgbw", "bridge"].indexOf(req.param.type)==-1) {
             res.status(500).send({ error: "unknown bulb type" });
             return false;
@@ -24,7 +24,7 @@ module.exports = function(express, alexaAppServerObject) {
     };
 
     express.get("/light/:ltype/:zone/on", function(req, res) {
-      if (validateCommon(req)) {
+      if (validateCommon(req, res)) {
           var ltype = req.param.ltype;
           var zone = parseInt(req.param.zone);
 
@@ -48,7 +48,7 @@ module.exports = function(express, alexaAppServerObject) {
     });
 
     express.get("/light/:ltype/:zone/off", function(req, res) {
-      if (validateCommon(req)) {
+      if (validateCommon(req, res)) {
           var ltype = req.param.ltype;
           var zone = parseInt(req.param.zone);
 
@@ -72,7 +72,7 @@ module.exports = function(express, alexaAppServerObject) {
     });
 
     express.get("/light/:ltype/:zone/brightness/:brightness", function(req, res) {
-      if (validateCommon(req)) {
+      if (validateCommon(req, res)) {
         if (!req.param.brightness || isNaN(parseInt(req.param.brightness))) {
             res.status(500).send({ error: "invalid brightness" });
             return false;
