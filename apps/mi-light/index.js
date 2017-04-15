@@ -82,6 +82,7 @@ app.intent(
 
         if (!room) {
             res.say("sorry, i did not understand which light you meant");
+            console.log("did not understand light; light on " + req.slot("ROOM"));
             return;
         }
 
@@ -94,8 +95,9 @@ app.intent(
         if (room.type == 'rgbw') light.sendCommands(commands.rgbw.on(room.zone));
         if (room.type == 'full') light.sendCommands(commands.fullColor.on(room.zone));
         if (room.type == 'bridge') light.sendCommands(commands.bridge.on());
-	light.pause(1000);
-	light.close();
+        light.pause(1000);
+        light.close();
+        console.log("turned light on " + req.slot("ROOM"));
     });
 
 app.intent(
@@ -115,6 +117,7 @@ app.intent(
         var room = app.rooms[req.slot("ROOM")];
         if (room == undefined) {
             res.say("sorry, i did not understand which light you meant");
+            console.log("did not understand light; light off " + req.slot("ROOM"));
             return;
         }
 
@@ -127,8 +130,9 @@ app.intent(
         if (room.type == 'rgbw') light.sendCommands(commands.rgbw.off(room.zone));
         if (room.type == 'full') light.sendCommands(commands.fullColor.off(room.zone));
         if (room.type == 'bridge') light.sendCommands(commands.bridge.off());
-	light.pause(1000);
-	light.close();
+        light.pause(1000);
+        light.close();
+        console.log("turned light off " + req.slot("ROOM"));
     });
 
 app.intent(
@@ -151,10 +155,12 @@ app.intent(
 
         if (room == undefined) {
             res.say("sorry, i did not understand which light you meant");
+            console.log("did not understand light; light off " + req.slot("ROOM"));
             return;
         }
 
         if (isNaN(luminosity)) {
+            console.log("did not understand brightness; light " + req.slot("ROOM") + "; brightness " + req.slot("BRIGHT"));
             res.say("sorry, i did not understand how bright you wanted the light");
             return;
         }
@@ -175,8 +181,9 @@ app.intent(
         if (room.type == 'bridge') {
             light.sendCommands(commands.bridge.on(), commands.bridge.brightness(luminosity));
         }
-	light.pause(1000);
-	light.close();
+        light.pause(1000);
+        light.close();
+        console.log("set brightness of " + req.slot("ROOM") + " light to " + req.slot("BRIGHT") + " percent");
     });
 
 module.exports = app;
