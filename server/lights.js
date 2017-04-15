@@ -52,6 +52,8 @@ module.exports = function(express, alexaAppServerObject) {
                 light.sendCommands(commands.bridge.on());
                 break;
           }
+          light.pause(1000);
+          light.close();
 
           setCacheHeaders(res);
           res.status(200).send({ status: "OK", message: "Light turned on successfully." });
@@ -79,6 +81,8 @@ module.exports = function(express, alexaAppServerObject) {
                 light.sendCommands(commands.bridge.off());
                 break;
           }
+          light.pause(1000);
+          light.close();
 
           setCacheHeaders(res);
           res.status(200).send({ status: "OK", message: "Light turned off successfully." });
@@ -117,6 +121,8 @@ module.exports = function(express, alexaAppServerObject) {
                 light.sendCommands(commands.bridge.on(), commands.bridge.brightness(brightness));
                 break;
         }
+        light.pause(1000);
+        light.close();
 
         setCacheHeaders(res);
         res.status(200).send({ status: "OK", message: "Brightness set successfully." });

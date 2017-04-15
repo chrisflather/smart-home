@@ -94,6 +94,8 @@ app.intent(
         if (room.type == 'rgbw') light.sendCommands(commands.rgbw.on(room.zone));
         if (room.type == 'full') light.sendCommands(commands.fullColor.on(room.zone));
         if (room.type == 'bridge') light.sendCommands(commands.bridge.on());
+	light.pause(1000);
+	light.close();
     });
 
 app.intent(
@@ -125,6 +127,8 @@ app.intent(
         if (room.type == 'rgbw') light.sendCommands(commands.rgbw.off(room.zone));
         if (room.type == 'full') light.sendCommands(commands.fullColor.off(room.zone));
         if (room.type == 'bridge') light.sendCommands(commands.bridge.off());
+	light.pause(1000);
+	light.close();
     });
 
 app.intent(
@@ -171,6 +175,8 @@ app.intent(
         if (room.type == 'bridge') {
             light.sendCommands(commands.bridge.on(), commands.bridge.brightness(luminosity));
         }
+	light.pause(1000);
+	light.close();
     });
 
 module.exports = app;
