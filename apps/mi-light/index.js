@@ -186,4 +186,56 @@ app.intent(
         console.log("set brightness of " + req.slot("ROOM") + " light to " + req.slot("BRIGHT") + " percent");
     });
 
+app.intent(
+    'Warm', 
+    {
+        "slots": {
+            "ROOM": "RoomType",
+            "TEMP": "AMAZON.NUMBER",
+        },
+        "utterances": [
+            "{|to} {warm|cool} {|the} {-|ROOM} {|light} to {-|TEMP} {|percent}",
+            "{|to} {warm|cool} {|the} light {for|in|on} {|the} {-|ROOM} to {-|TEMP} {|percent}",
+            "{|to} set {|the} {warmth|temperature} of {|the} {-|ROOM} {|light} to {-|TEMP} {|percent}",
+            "{|to} set {|the} {warmth|temperature} of {|the} light {for|in|on} {|the} {-|ROOM} to {-|TEMP} {|percent}"            
+        ]
+    },
+    function(req,res) {
+        var room = app.rooms[req.slot("ROOM")];
+        var temperature = parseInt(req.slot("TEMP"));
+
+        if (room == undefined) {
+            res.say("sorry, i did not understand which light you meant");
+            console.log("did not understand light; light off " + req.slot("ROOM"));
+            return;
+        }
+
+        if (isNaN(temperature)) {
+            console.log("did not understand temperature; light " + req.slot("ROOM") + "; temperature " + req.slot("TEMP"));
+            res.say("sorry, i did not understand how warm you wanted the light");
+            return;
+        }
+
+        var light = new Milight({
+            ip: controlIP,
+            type: 'v6'
+        });
+
+        if (room.type == 'rgbw') {
+            res.say("sorry, the " + req.slot("ROOM") + " light does not support warmth settings.");
+            console.log(req.slot("ROOM") + " light does not support warmth settings.");
+        }
+        if (room.type == 'full') {
+            light.sendCommands(commands.fullColor.on(room.zone), commands.fullColor.whiteMode(room.zone), commands.fullColor.whiteTemperature(room.zone, temperature));
+            res.say("setting warmth of " + req.slot("ROOM") + " light to " + req.slot("TEMP") + " percent");
+            console.log("set warmth of " + req.slot("ROOM") + " light to " + req.slot("TEMP") + " percent");
+        }
+        if (room.type == 'bridge') {
+            res.say("sorry, the " + req.slot("ROOM") + " light does not support warmth settings.");
+            console.log(req.slot("ROOM") + " light does not support warmth settings.");
+        }
+        light.pause(1000);
+        light.close();        
+    });
+
 module.exports = app;
