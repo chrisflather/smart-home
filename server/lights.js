@@ -136,4 +136,51 @@ module.exports = function(express, alexaAppServerObject) {
         console.log("brightness set for light; " + ltype + "/" + zone + " to " + brightness);
       } 
     });
+
+    express.get("/light/:ltype/:zone/warmth/:temperature", function(req, res) {
+      if (validateCommon(req, res)) {
+        var ltype = req.params.ltype;
+        var zone = parseInt(req.params.zone);
+
+        if (!req.params.temperature || isNaN(parseInt(req.params.temperature))) {
+            res.status(400).send({  status: "ERROR", message: "invalid temperature" });
+            console.log("invalid temperature: " + req.params.temperature);
+            return false;
+        }
+
+        var temperature = parseInt(req.params.temperature);
+        if (temperature < 0 || temperature > 100) {
+            res.status(400).send({  status: "ERROR", message: "temperature out of range" });
+            console.log("temperature out of range: " + req.params.temperature);
+            return false;
+        }
+
+        var light = new Milight({
+            ip: controlIP,
+            type: 'v6'
+        });
+
+        switch (ltype) {
+            case "full":
+                light.sendCommands(commands.fullColor.on(zone), commands.fullColor.whiteMode(zone), commands.fullColor.whiteTemperature(zone, temperature));
+                break;
+            case "rgbw":
+                res.status(400).send({  status: "ERROR", message: "light does not support temperature" });
+                console.log("temperature not supported for light; " + ltype + "/" + zone);
+                return false;
+                break;
+            case "bridge":
+                res.status(400).send({  status: "ERROR", message: "light does not support temperature" });
+                console.log("temperature not supported for light; " + ltype + "/" + zone);
+                return false;
+                break;
+        }
+        light.pause(1000);
+        light.close();
+
+        setCacheHeaders(res);
+        res.status(200).send({ status: "OK", message: "Warmth set successfully." });
+        console.log("warmth set for light; " + ltype + "/" + zone + " to " + temperature);
+      } 
+    });
 };
