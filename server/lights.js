@@ -162,7 +162,7 @@ module.exports = function(express, alexaAppServerObject) {
 
         switch (ltype) {
             case "full":
-                light.sendCommands(commands.fullColor.on(zone), commands.fullColor.whiteMode(zone), commands.fullColor.whiteTemperature(zone, temperature));
+                light.sendCommands(commands.fullColor.on(zone), commands.fullColor.whiteMode(zone), commands.fullColor.whiteTemperature(zone, 100 - temperature));
                 break;
             case "rgbw":
                 res.status(400).send({  status: "ERROR", message: "light does not support temperature" });
