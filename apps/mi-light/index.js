@@ -226,7 +226,7 @@ app.intent(
             console.log(req.slot("ROOM") + " light does not support warmth settings.");
         }
         if (room.type == 'full') {
-            light.sendCommands(commands.fullColor.on(room.zone), commands.fullColor.whiteMode(room.zone), commands.fullColor.whiteTemperature(room.zone, temperature));
+            light.sendCommands(commands.fullColor.on(room.zone), commands.fullColor.whiteMode(room.zone), commands.fullColor.whiteTemperature(room.zone, 100 - temperature));
             res.say("setting warmth of " + req.slot("ROOM") + " light to " + req.slot("TEMP") + " percent");
             console.log("set warmth of " + req.slot("ROOM") + " light to " + req.slot("TEMP") + " percent");
         }
