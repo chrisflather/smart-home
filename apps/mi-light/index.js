@@ -1845,17 +1845,41 @@ app.intent(
         });
 
         if (room.type == 'rgbw') {
-            light.sendCommands(commands.rgbw.on(room.zone), commands.rgbw.rgb(room.zone, color[0], color[1], color[2]));
+            if (req.slot("COLOR") == "white") {
+                light.sendCommands(commands.rgbw.on(room.zone), commands.rgbw.whiteMode(room.zone));
+            }
+            else if (req.slot("COLOR") == "black") {
+                light.sendCommands(commands.rgbw.off(room.zone));
+            }
+            else {
+                light.sendCommands(commands.rgbw.on(room.zone), commands.rgbw.rgb(room.zone, color[0], color[1], color[2]));
+            }
             res.say("setting color of " + req.slot("ROOM") + " light to " + req.slot("COLOR"));
             console.log("setting color of " + req.slot("ROOM") + " light to " + req.slot("COLOR"));
         }
         if (room.type == 'full') {
-            light.sendCommands(commands.fullColor.on(room.zone), commands.fullColor.rgb(room.zone, color[0], color[1], color[2]));
+            if (req.slot("COLOR") == "white") {
+                light.sendCommands(commands.fullColor.on(room.zone), commands.fullColor.whiteMode(room.zone));
+            }
+            else if (req.slot("COLOR") == "black") {
+                light.sendCommands(commands.fullColor.off(room.zone));
+            }
+            else {
+                light.sendCommands(commands.fullColor.on(room.zone), commands.fullColor.rgb(room.zone, color[0], color[1], color[2]));
+            }
             res.say("setting color of " + req.slot("ROOM") + " light to " + req.slot("COLOR"));
             console.log("setting color of " + req.slot("ROOM") + " light to " + req.slot("COLOR"));
         }
         if (room.type == 'bridge') {
-            light.sendCommands(commands.bridge.on(), commands.bridge.rgb(color[0], color[1], color[2]));
+            if (req.slot("COLOR") == "white") {
+                light.sendCommands(commands.bridge.on(), commands.bridge.whiteMode());
+            }
+            else if (req.slot("COLOR") == "black") {
+                light.sendCommands(commands.bridge.off());
+            }
+            else {
+                light.sendCommands(commands.bridge.on(), commands.bridge.rgb(color[0], color[1], color[2]));
+            }            
             res.say("setting color of " + req.slot("ROOM") + " light to " + req.slot("COLOR"));
             console.log("setting color of " + req.slot("ROOM") + " light to " + req.slot("COLOR"));
         }
