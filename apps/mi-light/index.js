@@ -1810,7 +1810,7 @@ app.intent(
     });
 
 app.intent(
-    'Color', 
+    'SetColor', 
     {
         "slots": {
             "ROOM": "RoomType",
